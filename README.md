@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kolo Frontend
 
-## Getting Started
+This is the official Next.js frontend repository for the Kolo application. The application is built using the Next.js App Router, strict TypeScript, and TailwindCSS, establishing a robust, production-ready foundation for future Stellar wallet, payment, and Soroban integrations.
 
-First, run the development server:
+## Tech Stack
+- **Framework**: Next.js (App Router)
+- **Language**: TypeScript (Strict Mode)
+- **Styling**: TailwindCSS
+- **Code Quality**: ESLint, Prettier
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Local Setup
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To get started with development locally:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Install Dependencies**
+   Make sure you have Node.js installed, then run:
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. The application will auto-update as you edit the files.
 
-## Learn More
+## Project Structure & Architecture
 
-To learn more about Next.js, take a look at the following resources:
+The application implements a clean, atomic folder architecture separating concerns into specific domain areas:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `src/app/(auth)/`: Unauthenticated login and registration routes.
+- `src/app/(dashboard)/`: Protected user dashboard, group management, payments, and profile routing.
+- `src/app/api/`: Serverless API handlers, including Stellar wallet integrations and WhatsApp webhooks.
+- `src/components/`: Reusable UI elements, heavily utilizing `index.ts` barrel files. Segmented into `common/`, `dashboard/`, `groups/`, `payments/`, and `layout/`.
+- `src/hooks/`: Custom React hooks for global domain logic (`useAuth`, `useWallet`, etc.).
+- `src/services/`: Isolated API fetch logic, segregating internal endpoints, external Stellar SDK usage, and webhook utilities.
+- `src/context/`: React Context providers for global state management.
+- `src/types/`: Centralized TypeScript interfaces for strict typing across the app.
+- `src/utils/`: Common utilities including formatting helpers and cross-platform validators.
+- `src/middleware.ts`: Next.js middleware handling dynamic route protection for the `/(dashboard)` routes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Development Workflow
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Branching**: Always branch off `main` to create features (`feature/my-feature`).
+- **Committing**: Ensure the code builds properly and all type checks pass before committing. 
+- **Validation**:
+  - Run `npm run build` to verify Next.js static rendering and TypeScript compilation.
+  - Run `npm run lint` to catch stylistic and syntax errors.
